@@ -8,15 +8,16 @@ class FirstTopology(Topo):
 	"""
 	A basic topology of 3 hosts and 1 switch
 	"""
-
-	switch = self.addSwitch('s1') ## Adds a Switch
-	host1 = self.addHost('h1') ## Adds a Host
-	host2 = self.addHost('h2') ## Adds a Host
-	host3 = self.addHost('h3') ## Adds a Host
-
-	self.addLink(host1, switch) ## Add a link
-	self.addLink(host2, switch) ## Add a link
-	self.addLink(host3, switch) ## Add a link
+        def __init__(self):
+		Topo.__init__(self)
+		switch = self.addSwitch('s1') ## Adds a Switch
+		host1 = self.addHost('cl') ## Adds a Host
+		host2 = self.addHost('pr') ## Adds a Host
+		host3 = self.addHost('ser') ## Adds a Host
+		
+		self.addLink(host1, switch) ## Add a link
+		self.addLink(host2, switch) ## Add a link
+		self.addLink(host3, switch) ## Add a link
 
 if __name__ == '__main__':
 		"""
