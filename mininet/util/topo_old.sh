@@ -3,7 +3,6 @@
 from mininet.topo import Topo
 from mininet.net import Mininet
 from mininet.cli import CLI
-from mininet.node import RemoteController
 
 class FirstTopology(Topo):
 	"""
@@ -27,7 +26,7 @@ if __name__ == '__main__':
 		"""
 
 		topo = FirstTopology() ## Creates the topology
-		net = Mininet( topo=topo, controller=RemoteController ) ## Loads the topology
+		net = Mininet( topo=topo ) ## Loads the topology
 		net.start() ## Starts Mininet
 		CLI(net)
 		net.stop() ## Stops Mininet
