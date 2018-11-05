@@ -11,14 +11,15 @@ class FirstTopology(Topo):
 	"""
         def __init__(self):
 		Topo.__init__(self)
-		switch = self.addSwitch('s1') ## Adds a Switch
+		switch_snort = self.addSwitch('s1') ## Adds a Switch
+		switch_ryu = self.addSwitch('s2')
 		host1 = self.addHost('cl') ## Adds a Host
-		host2 = self.addHost('pr') ## Adds a Host
-		host3 = self.addHost('ser') ## Adds a Host
+		#host2 = self.addHost('pr') ## Adds a Host
+		host2 = self.addHost('ser') ## Adds a Host
 		
-		self.addLink(host1, switch) ## Add a link
-		self.addLink(host2, switch) ## Add a link
-		self.addLink(host3, switch) ## Add a link
+		self.addLink(host1, switch_snort) ## Add a link
+		self.addLink(switch_snort, switch_ryu) ## Add a link
+		self.addLink(switch_ryu, host2) ## Add a link
 
 if __name__ == '__main__':
 		"""
@@ -27,7 +28,7 @@ if __name__ == '__main__':
 		"""
 
 		topo = FirstTopology() ## Creates the topology
-		net = Mininet( topo=topo, switch=OVSSwitch, controller=RemoteController ) ## Loads the topology
+		net = Mininet( topo=topo, controller=RemoteController ) ## Loads the topology
 		net.start() ## Starts Mininet
 		CLI(net)
 		net.stop() ## Stops Mininet
