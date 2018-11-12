@@ -1,4 +1,5 @@
-alert tcp any any -> any 80 (msg:"Error Based SQL Injection Detected Single Quote"; content:"GET"; http_method; uricontent:"%27"; sid:100000001; rev:0;)
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote"; content:"GET"; http_method; uricontent:"%27"; sid:100000001; rev:0;)
+
 alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote"; content:"GET"; http_method; uricontent:"'"; sid:100000002; rev:0;)
 
 alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Double Quote"; content:"GET"; http_method; uricontent:"%22"; sid:100000003; rev:0;)
