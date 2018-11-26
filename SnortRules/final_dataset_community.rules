@@ -1,0 +1,23 @@
+# Copyright 2005 Sourcefire, Inc. All Rights Reserved.
+# These rules are licensed under the GNU General Public License.
+# Please see the file LICENSE in this directory for more details.
+# $Id: community-sql-injection.rules,v 1.10 2006/10/19 20:19:34 akirk Exp $
+
+
+alert tcp any any -> any any (msg:"1000000050"; content:"GET"; http_method; uricontent:"/rawdocdata.asp?"; nocase; pcre:"/rawdocdata.asp\x3F[^\r\n]*exec/Ui"; sid:1000000050; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000051"; content:"GET"; http_method; uricontent:"/rawdocdata.asp?"; nocase; pcre:"/RawCustomSearchField.asp\x3F[^\r\n]*exec/Ui"; sid:1000000051; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000052"; content:"GET"; http_method; uricontent:"/board.php"; pcre:"/board.php\x3F\w+\x3D[0-9]+\s/Ui"; sid:1000000052; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000053"; content:"GET"; http_method; uricontent:"/member.php"; pcre:"/member.php\x3F\w+\x3D[0-9]+\s/Ui"; sid:1000000053; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000054"; content:"GET"; http_method; uricontent:"/ForumTopicDetails.php"; nocase; uricontent:"TopicID|3D|"; nocase; uricontent:"union"; nocase; uricontent:"select"; nocase; uricontent:"from"; nocase; uricontent:"ForumUser"; nocase; uricontent:"where"; nocase; sid:1000000054; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000055"; content:"GET"; http_method; uricontent:"/ForumAuthDetails.php"; nocase; uricontent:"AuthID|3D|"; nocase; uricontent:"union"; nocase; uricontent:"select"; nocase; uricontent:"from"; nocase; uricontent:"ForumUser"; nocase; uricontent:"where"; nocase; sid:1000000055; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000056"; content:"GET"; http_method; uricontent:"/ForumReply.php"; nocase; uricontent:"TopicID|3D|"; nocase; uricontent:"union"; nocase; uricontent:"select"; nocase; uricontent:"from"; nocase; uricontent:"ForumUser"; nocase; uricontent:"where"; nocase; sid:1000000056; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000057"; content:"GET"; http_method; uricontent:"/index.php"; nocase; uricontent:"where="; nocase; uricontent:"union"; nocase; uricontent:"select"; nocase; pcre:"/\x2b\w*\x54\w*/"; sid:1000000057; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000058"; content:"GET"; http_method; uricontent:"/category.php"; nocase; uricontent:"id="; uricontent:"union"; nocase; uricontent:"select"; nocase; uricontent:"admin"; nocase; sid:1000000058; rev:1;)
