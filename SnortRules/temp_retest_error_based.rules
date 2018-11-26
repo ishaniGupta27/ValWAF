@@ -1,0 +1,22 @@
+
+
+alert tcp any any -> any any (msg:"100000005"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/[0-9]'/Ui"; sid:100000005; rev:0;)
+
+alert tcp any any -> any any (msg:"100000006"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/[0-9]''/Ui"; sid:100000006; rev:0;)
+
+
+alert tcp any any -> any any (msg:"100000008"; content:"union select ";nocase; pcre:"/[0-9],[0-9] (\-\-) /Ui"; sid:100000008; rev:0;)
+
+alert tcp any any -> any any (msg:"100000009"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/(\%27)|(\')/Ui"; sid:100000009; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000010"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/(\')/Ui"; sid:100000010; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000011"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/(\%22)/Ui"; sid:100000011; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000012"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/((\%27)|(\'))union/Ui"; sid:100000012; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000013"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/((\'))union/Ui"; sid:100000013; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000014"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/((((\%55)|(u)|(\%75))((\%4e)|(n)|(\%6e))((\%69)|(i)|(\%49))((\%6f)|(o)|(\%4f))((\%4e)|(n)|(\%6e)))[^\n]*(((\%73)|(s)|(\%53))((\%65)|(e)|(\%45))((\%6c)|(l)|(\%4c))((\%65)|(e)|(\%45))((\%63)|(c)|(\%43))((\%74)|(t)|(\%54))))/Ui"; sid:100000014; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000015"; content:"%/rawdocdata.asp?id=";nocase; pcre:"/((\?)[^\n]*(\=)[^\n]*((\%55)|(u)|(\%75))((\%4e)|(n)|(\%6e))((\%69)|(i)|(\%49))((\%6f)|(o)|(\%4f))((\%4e)|(n)|(\%6e)))/Ui"; sid:100000015; rev:0;)

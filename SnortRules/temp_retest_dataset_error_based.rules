@@ -1,0 +1,37 @@
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote"; content:"GET"; http_method; uricontent:"%27"; sid:100000001; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote"; content:"GET"; http_method; uricontent:"'"; sid:100000002; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Double Quote"; content:"GET"; http_method; uricontent:"%22"; sid:100000003; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Double Quote"; content:"GET"; http_method; uricontent:"''"; sid:100000004; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/[0-9]'/Ui"; sid:100000005; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Double Quote"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/[0-9]''/Ui"; sid:100000006; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Union"; content:"GET"; http_method; uricontent:"union";nocase; sid:100000007; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Union"; content:"GET"; http_method; uricontent:"union select ";nocase; pcre:"/[0-9],[0-9] (\-\-) /Ui"; sid:100000008; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/(\%27)|(\')/Ui"; sid:100000009; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/(\')/Ui"; sid:100000010; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Double Quote"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/(\%22)/Ui"; sid:100000011; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote and Union"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/((\%27)|(\'))union/Ui"; sid:100000012; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Single Quote and Union"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/((\'))union/Ui"; sid:100000013; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Union from Paper Rule 4"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/((((\%55)|(u)|(\%75))((\%4e)|(n)|(\%6e))((\%69)|(i)|(\%49))((\%6f)|(o)|(\%4f))((\%4e)|(n)|(\%6e)))[^\n]*(((\%73)|(s)|(\%53))((\%65)|(e)|(\%45))((\%6c)|(l)|(\%4c))((\%65)|(e)|(\%45))((\%63)|(c)|(\%43))((\%74)|(t)|(\%54))))/Ui"; sid:100000014; rev:0;)
+
+alert tcp any any -> any any (msg:"Error Based SQL Injection Detected Union from Paper Rule 5"; content:"GET"; http_method; uricontent:"%/rawdocdata.asp?id=";nocase; pcre:"/((\?)[^\n]*(\=)[^\n]*((\%55)|(u)|(\%75))((\%4e)|(n)|(\%6e))((\%69)|(i)|(\%49))((\%6f)|(o)|(\%4f))((\%4e)|(n)|(\%6e)))/Ui"; sid:100000015; rev:0;)
+
+alert tcp any any -> any $HTTP_PORTS (msg:"https://www.os3.nl/_media/2016-2017/courses/ot/gerrie_ravzan.pdf 1"; content:"GET"; http_method; uricontent:"%27%20and%201=2%20union%20all%20select%201,1"; sid:1000000016; rev:0;)
+
+alert tcp any any -> any $HTTP_PORTS (msg:"https://www.os3.nl/_media/2016-2017/courses/ot/gerrie_ravzan.pdf 2"; content:"GET"; http_method; uricontent:"%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2C"; sid:1000000017; rev:0;)
+
+alert tcp any any -> any $HTTP_PORTS (msg:"https://www.os3.nl/_media/2016-2017/courses/ot/gerrie_ravzan.pdf 3"; content:"GET"; http_method; uricontent:"%27%20and%201%3D0%20UNION%20ALL%20SELECT%200%2C1%2CCONCAT%28"; sid:1000000018; rev:0;)
+
+alert tcp any any -> any $HTTP_PORTS (msg:"https://www.os3.nl/_media/2016-2017/courses/ot/gerrie_ravzan.pdf 4"; content:"GET"; http_method; uricontent:"%27+union+all+select+"; sid:1000000019; rev:0;)
