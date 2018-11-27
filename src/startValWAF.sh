@@ -11,6 +11,9 @@ echo "trafficFile:" "$ppcapFile"
 #send rule file to ValWAF
 scp -i ${pemFile} ${ruleFile} ubuntu@${valWaf}:/home/ubuntu/WebApplicationFirewall/src/ValWAFFiles/RulesRepo
 
+#send rule file to ValWAF
+scp -i ${pemFile} ${pemFileAgent} ubuntu@${valWaf}:/home/ubuntu/WebApplicationFirewall/src/ValWAFFiles/ppcap
+
 #tmux for starting server
 tmux -2 new-session -d -s startServer
 tmux send -t startServer " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
@@ -34,8 +37,19 @@ tmux send -t maliciousTrafficGenerator " ./stopTracking.sh" ENTER
 #send file to ValWAFAgent
 tmux detach -s maliciousTrafficGenerator
 
+sleep 10
+
 tmux kill-session -t startServer
 tmux kill-session -t trackTraffic
+tmux kill-session -t maliciousTrafficGenerator
 
-./startValWAFAgent valWaf valAgent pemFileAgent ppcapFile
+
+
+
+#attach to session
+tmux -2 new-session -d -s sendPcapFile
+tmux send -t sendPcapFile " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
+tmux send -t sendPcapFile " cd WebApplicationFirewall/src/ValWAFFiles/ppcap" ENTER
+tmux send -t sendPcapFile " ./sendPcap.sh $ppcapFile $valAgent" ENTER
+tmux detach -s sendPcapFile
 
