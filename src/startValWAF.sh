@@ -18,14 +18,14 @@ tmux detach -s startServer
 #tmux for trackng traffic
 tmux -2 new-session -d -s trackTraffic
 tmux send -t trackTraffic " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
-tmux send -t trackTraffic " cd ppcap" ENTER
+tmux send -t trackTraffic " cd WebApplicationFirewall/src/ValWAFFiles/ppcap" ENTER
 tmux send -t trackTraffic " ./startTracking.sh $ppcapFile" ENTER
 tmux detach -s trackTraffic
 
 #start sending malicious traffic
 tmux -2 new-session -d -s maliciousTrafficGenerator
 tmux send -t maliciousTrafficGenerator " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
-tmux send -t maliciousTrafficGenerator " cd ppcap" ENTER
+tmux send -t maliciousTrafficGenerator " cd WebApplicationFirewall/src/ValWAFFiles/ppcap" ENTER
 tmux send -t maliciousTrafficGenerator " ./make_ppcap.sh $ruleFile" ENTER
 tmux detach -s maliciousTrafficGenerator
 
