@@ -7,7 +7,7 @@ ppcapFile=${ruleFile//.rules/}
 echo "trafficFile:" "$ppcapFile"
 
 #send rule file to ValWAF
-scp -i ${pemFile} ${ruleFile} ubuntu@${valWaf}:/home/ubuntu/MaliciousTrafficGenerator/RulesRepo
+scp -i ${pemFile} ${ruleFile} ubuntu@${valWaf}:/home/ubuntu/WebApplicationFirewall/src/ValWAFFiles/RulesRepo
 
 #tmux for starting server
 tmux -2 new-session -d -s startServer
@@ -25,7 +25,7 @@ tmux detach -s trackTraffic
 #start sending malicious traffic
 tmux -2 new-session -d -s maliciousTrafficGenerator
 tmux send -t maliciousTrafficGenerator " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
-tmux send -t maliciousTrafficGenerator " cd MaliciousTrafficGenerator" ENTER
+tmux send -t maliciousTrafficGenerator " cd ppcap" ENTER
 tmux send -t maliciousTrafficGenerator " ./make_ppcap.sh $ruleFile" ENTER
 tmux detach -s maliciousTrafficGenerator
 
