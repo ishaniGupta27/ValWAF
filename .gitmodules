@@ -1,0 +1,3 @@
+[submodule "src/ValWAFFiles/MaliciousTrafficGenerator"]
+	path = src/ValWAFFiles/MaliciousTrafficGenerator
+	url = https://github.com/felixe/idsEventGenerator.git
