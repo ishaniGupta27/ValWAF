@@ -2,6 +2,8 @@
 valWaf=$1
 pemFile=$2
 ruleFile=$3
+valAgent=$4
+pemFileAgent=$5
 current_time=$(date "+%Y/%m/%d-%H/%M")
 ppcapFile=${ruleFile//.rules/}
 echo "trafficFile:" "$ppcapFile"
@@ -27,12 +29,13 @@ tmux -2 new-session -d -s maliciousTrafficGenerator
 tmux send -t maliciousTrafficGenerator " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
 tmux send -t maliciousTrafficGenerator " cd WebApplicationFirewall/src/ValWAFFiles/ppcap" ENTER
 tmux send -t maliciousTrafficGenerator " ./make_ppcap.sh $ruleFile" ENTER
+#stop tracking traffic
+tmux send -t maliciousTrafficGenerator " ./stopTracking.sh" ENTER
+#send file to ValWAFAgent
 tmux detach -s maliciousTrafficGenerator
 
-#stop tracking traffic
-tmux send -t trackTraffic " ./stopTracking.sh" ENTER
+tmux kill-session -t startServer
+tmux kill-session -t trackTraffic
 
-#stop server
+./startValWAFAgent valWaf valAgent pemFileAgent ppcapFile
 
-#send file to ValWAFAgent
-tmux send -t trackTraffic " ./sendPcap.sh $ppcapFile" ENTER
