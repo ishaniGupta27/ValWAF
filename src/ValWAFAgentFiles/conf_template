@@ -528,8 +528,8 @@ preprocessor reputation: \
 # output log_tcpdump: tcpdump.log
 
 # metadata reference data.  do not modify these lines
-include classification.config
-include reference.config
+include /etc/snort/classification.config
+include /etc/snort/reference.config
 
 
 ###################################################
@@ -615,4 +615,4 @@ include /home/ubuntu/WebApplicationFirewall/src/ValWAFAgentFiles/RulesRepo/place
 # include $SO_RULE_PATH/web-misc.rules
 
 # Event thresholding or suppression commands. See threshold.conf 
-include threshold.conf
+include /etc/snort/threshold.conf
