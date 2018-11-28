@@ -101,13 +101,13 @@ ipvar AIM_SERVERS [64.12.24.0/23,64.12.28.0/23,64.12.161.0/24,64.12.163.0/24,64.
 # Path to your rules files (this can be a relative path)
 # Note for Windows users:  You are advised to make this an absolute path,
 # such as:  c:\snort\rules
-var RULE_PATH ../rules
-var SO_RULE_PATH ../so_rules
-var PREPROC_RULE_PATH ../preproc_rules
+var RULE_PATH /etc/snort/rules
+var SO_RULE_PATH /etc/snort/so_rules
+var PREPROC_RULE_PATH /etc/snort/preproc_rules
 
 # If you are using reputation preprocessor set these
-var WHITE_LIST_PATH ../rules
-var BLACK_LIST_PATH ../rules
+var WHITE_LIST_PATH /etc/snort/rules
+var BLACK_LIST_PATH /etc/snort/rules
 
 ###################################################
 # Step #2: Configure the decoder.  For more information, see README.decode
@@ -290,7 +290,7 @@ preprocessor stream5_udp: timeout 180
 # preprocessor perfmonitor: time 300 file /var/snort/snort.stats pktcnt 10000
 
 # HTTP normalization and anomaly detection.  For more information, see README.http_inspect
-preprocessor http_inspect: global iis_unicode_map \etc\snort\unicode.map 1252 compress_depth 65535 decompress_depth 65535
+preprocessor http_inspect: global iis_unicode_map /etc/snort/unicode.map 1252 compress_depth 65535 decompress_depth 65535
 preprocessor http_inspect_server: server default \
     http_methods { GET POST PUT SEARCH MKCOL COPY MOVE LOCK UNLOCK NOTIFY POLL BCOPY BDELETE BMOVE LINK UNLINK OPTIONS HEAD DELETE TRACE TRACK CONNECT SOURCE SUBSCRIBE UNSUBSCRIBE PROPFIND PROPPATCH BPROPFIND BPROPPATCH RPC_CONNECT PROXY_SUCCESS BITS_POST CCM_POST SMS_POST RPC_IN_DATA RPC_OUT_DATA RPC_ECHO_DATA } \
     chunk_length 500000 \
