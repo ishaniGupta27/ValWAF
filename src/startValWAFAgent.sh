@@ -10,3 +10,8 @@ scp -i ${pemFileAgent} ${pemFileAgent} ubuntu@${valWaf}:/home/ubuntu/WebApplicat
 #attach to session
 tmux attach -t maliciousTrafficGenerator
 tmux send -t maliciousTrafficGenerator " ./sendPcap.sh $ppcapFile $valAgent" ENTER
+tmux detach -s maliciousTrafficGenerator
+
+
+
+
