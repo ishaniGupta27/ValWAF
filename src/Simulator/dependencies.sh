@@ -30,5 +30,8 @@ tar xvzf snort-2.9.12.tar.gz
 cd snort-2.9.12
 ./configure --enable-sourcefire && make && sudo make install
 
+#install tcpreplay
+sudo apt-get install tcpreplay
+
 
 
