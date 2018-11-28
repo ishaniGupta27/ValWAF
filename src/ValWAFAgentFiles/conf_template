@@ -504,9 +504,9 @@ preprocessor dnp3: ports { 20000 } \
 preprocessor reputation: \
    memcap 500, \
    priority whitelist, \
-   nested_ip inner, \
-   whitelist $WHITE_LIST_PATH/white_list.rules, \
-   blacklist $BLACK_LIST_PATH/black_list.rules 
+   nested_ip inner
+   #whitelist $WHITE_LIST_PATH/white_list.rules, \
+   #blacklist $BLACK_LIST_PATH/black_list.rules 
 
 ###################################################
 # Step #6: Configure output plugins
