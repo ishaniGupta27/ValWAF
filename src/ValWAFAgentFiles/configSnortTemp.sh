@@ -11,7 +11,7 @@ ruleFileAgent=$1
 #mv /etc/snort/snort.conf /etc/snort/snort.conf_orig
 
 #pick template and add the rules name in it
-sed -r "/placeholder/ s//$ruleFileAgent/g" ./conf_template > ./ConfRepo/Snort_$ruleFileAgent.conf
+sed -r "/placeholder/ s//$ruleFileAgent/g" ./conf_template > ./ConfiRepo/Snort_$ruleFileAgent.conf
 
 #START SNORT
 #cd /etc/init.d
