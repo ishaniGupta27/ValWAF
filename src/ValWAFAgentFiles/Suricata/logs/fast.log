@@ -1,0 +1,8 @@
+11/29/2018-20:46:41.102585  [**] [1:1000003:1] TELNET connection attempt [**] [Classification: (null)] [Priority: 3] {TCP} 10.0.0.1:44372 -> 10.0.0.2:80
+11/29/2018-20:46:41.105398  [**] [1:1000003:1] TELNET connection attempt [**] [Classification: (null)] [Priority: 3] {TCP} 10.0.0.2:80 -> 10.0.0.1:44372
+11/29/2018-20:47:06.276226  [**] [1:1000003:1] TELNET connection attempt [**] [Classification: (null)] [Priority: 3] {TCP} 10.0.0.1:44374 -> 10.0.0.2:80
+11/29/2018-20:47:06.276506  [**] [1:1000003:1] TELNET connection attempt [**] [Classification: (null)] [Priority: 3] {TCP} 10.0.0.2:80 -> 10.0.0.1:44374
+11/29/2018-20:47:13.894564  [**] [1:1000003:1] TELNET connection attempt [**] [Classification: (null)] [Priority: 3] {TCP} 10.0.0.1:44376 -> 10.0.0.2:80
+11/29/2018-20:47:13.894624  [**] [1:1000003:1] TELNET connection attempt [**] [Classification: (null)] [Priority: 3] {TCP} 10.0.0.2:80 -> 10.0.0.1:44376
+11/29/2018-20:48:49.638627  [**] [1:1000002:1] ICMP connection attempt [**] [Classification: (null)] [Priority: 3] {IPv6-ICMP} fe80:0000:0000:0000:d4c1:72ff:fe90:6a20:133 -> ff02:0000:0000:0000:0000:0000:0000:0002:0
+11/29/2018-20:53:11.784712  [**] [1:1000002:1] ICMP connection attempt [**] [Classification: (null)] [Priority: 3] {IPv6-ICMP} fe80:0000:0000:0000:5c55:b1ff:fe15:3857:133 -> ff02:0000:0000:0000:0000:0000:0000:0002:0

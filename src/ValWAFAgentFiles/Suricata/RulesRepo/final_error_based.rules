@@ -1,0 +1,22 @@
+alert tcp any any -> any any (msg:"100000001"; content:"%27"; sid:100000001; rev:0;)
+
+alert tcp any any -> any any (msg:"100000002"; content:"'"; sid:100000002; rev:0;)
+
+alert tcp any any -> any any (msg:"100000003"; content:"%22"; sid:100000003; rev:0;)
+
+alert tcp any any -> any any (msg:"100000004"; content:"''"; sid:100000004; rev:0;)
+
+alert tcp any any -> any any (msg:"100000007"; content:"union";nocase; sid:100000007; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000014"; pcre:"/((((\%55)|(u)|(\%75))((\%4e)|(n)|(\%6e))((\%69)|(i)|(\%49))((\%6f)|(o)|(\%4f))((\%4e)|(n)|(\%6e)))[^\n]*(((\%73)|(s)|(\%53))((\%65)|(e)|(\%45))((\%6c)|(l)|(\%4c))((\%65)|(e)|(\%45))((\%63)|(c)|(\%43))((\%74)|(t)|(\%54))))/i";sid:1000000014; rev:2;) 
+
+alert tcp any any -> any any (msg:"1000000015"; pcre:"/((\?)[^\n]*(\=)[^\n]*((\%55)|(u)|(\%75))((\%4e)|(n)|(\%6e))((\%69)|(i)|(\%49))((\%6f)|(o)|(\%4f))((\%4e)|(n)|(\%6e)))/i"; sid:1000000015; rev:2;) 
+
+alert tcp any any -> any any (msg:"1000000016"; content:"%27%20and%201=2%20union%20all%20select%201,1"; sid:1000000016; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000017"; content:"%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2C"; sid:1000000017; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000018"; content:"%27%20and%201%3D0%20UNION%20ALL%20SELECT%200%2C1%2CCONCAT%28"; sid:1000000018; rev:0;)
+
+alert tcp any any -> any any (msg:"1000000019"; content:"%27+union+all+select+"; sid:1000000019; rev:0;)
+

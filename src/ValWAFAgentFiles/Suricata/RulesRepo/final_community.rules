@@ -1,0 +1,24 @@
+# Copyright 2005 Sourcefire, Inc. All Rights Reserved.
+# These rules are licensed under the GNU General Public License.
+# Please see the file LICENSE in this directory for more details.
+# $Id: community-sql-injection.rules,v 1.10 2006/10/19 20:19:34 akirk Exp $
+
+
+alert tcp any any -> any any (msg:"1000000050"; content:"/rawdocdata.asp?"; nocase; pcre:"/rawdocdata.asp\x3F[^\r\n]*exec/Ui"; sid:1000000050; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000051"; content:"/rawdocdata.asp?"; nocase; pcre:"/RawCustomSearchField.asp\x3F[^\r\n]*exec/Ui"; sid:1000000051; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000052"; content:"/board.php"; pcre:"/board.php\x3F\w+\x3D[0-9]+\s/Ui"; sid:1000000052; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000053"; content:"/member.php"; pcre:"/member.php\x3F\w+\x3D[0-9]+\s/Ui"; sid:1000000053; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000054"; content:"/ForumTopicDetails.php"; nocase; content:"TopicID|3D|"; nocase; content:"union"; nocase; content:"select"; nocase; content:"from"; nocase; content:"ForumUser"; nocase; content:"where"; nocase; sid:1000000054; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000055"; content:"/ForumAuthDetails.php"; nocase; content:"AuthID|3D|"; nocase; content:"union"; nocase; content:"select"; nocase; content:"from"; nocase; content:"ForumUser"; nocase; content:"where"; nocase; sid:1000000055; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000056"; content:"/ForumReply.php"; nocase; content:"TopicID|3D|"; nocase; content:"union"; nocase; content:"select"; nocase; content:"from"; nocase; content:"ForumUser"; nocase; content:"where"; nocase; sid:1000000056; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000057"; content:"/index.php"; nocase; content:"where="; nocase; content:"union"; nocase; content:"select"; nocase; pcre:"/\x2b\w*\x54\w*/"; sid:1000000057; rev:1;)
+
+alert tcp any any -> any any (msg:"1000000058"; content:"/category.php"; nocase; content:"id="; content:"union"; nocase; content:"select"; nocase; content:"admin"; nocase; sid:1000000058; rev:1;)
+
