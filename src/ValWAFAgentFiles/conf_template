@@ -132,7 +132,7 @@ config disable_tcpopt_alerts
 config disable_ipopt_alerts
 
 # Alert if value in length field (IP, TCP, UDP) is greater th elength of the packet
-# config enable_decode_oversized_alerts
+config enable_decode_oversized_alerts
 
 # Same as above, but drop packet if in Inline mode (requires enable_decode_oversized_alerts)
 # config enable_decode_oversized_drops
@@ -501,12 +501,7 @@ preprocessor dnp3: ports { 20000 } \
    check_crc
 
 # Reputation preprocessor. For more information see README.reputation
-preprocessor reputation: \
-   memcap 500, \
-   priority whitelist, \
-   nested_ip inner
-   #whitelist $WHITE_LIST_PATH/white_list.rules, \
-   #blacklist $BLACK_LIST_PATH/black_list.rules 
+
 
 ###################################################
 # Step #6: Configure output plugins
@@ -515,11 +510,13 @@ preprocessor reputation: \
 
 # unified2 
 # Recommended for most installs
-# output unified2: filename merged.log, limit 128, nostamp, mpls_event_types, vlan_event_types
+output unified2: filename merged.log, limit 128, nostamp, mpls_event_types, vlan_event_types
 
 # Additional configuration for specific types of installs
-# output alert_unified2: filename snort.alert, limit 128, nostamp
-# output log_unified2: filename snort.log, limit 128, nostamp 
+output alert_unified2: filename snort.alert, limit 128, timestamp
+output log_unified2: filename snort.log, limit 128, nostamp 
+
+output alert_csv: alert.csv timestamp, msg
 
 # syslog
 # output alert_syslog: LOG_AUTH LOG_ALERT
