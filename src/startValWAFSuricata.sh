@@ -74,11 +74,11 @@ scp -i ${pemFileAgent} ${ruleFileAgent} ubuntu@${valAgent}:/home/ubuntu/WebAppli
 
 #
 #tmux for starting server
-tmux -2 new-session -d -s reconfigSnort
-tmux send -t reconfigSnort " ssh -i ${pemFileAgent} ubuntu@${valAgent} " ENTER
-tmux send -t reconfigSnort "  cd WebApplicationFirewall/src/ValWAFAgentFiles" ENTER #
-tmux send -t reconfigSnort " ./configSnortTemp.sh ${ruleFileAgent//.rules/}" ENTER # New config : src/ValWAFAgentFiles/ConfiRepo 
-tmux detach -s reconfigSnort
+tmux -2 new-session -d -s reconfigSuricata
+tmux send -t reconfigSuricata " ssh -i ${pemFileAgent} ubuntu@${valAgent} " ENTER
+tmux send -t reconfigSuricata "  cd WebApplicationFirewall/src/ValWAFAgentFiles/Suricata/" ENTER #
+tmux send -t reconfigSuricata " ./configSuricatTemp.sh ${ruleFileAgent}" ENTER # New config : src/ValWAFAgentFiles/ConfiRepo 
+tmux detach -s reconfigSuricata
 
 echo 'Working perfect till here i.e. having new config file in ConfiRepo  '
 
@@ -98,15 +98,15 @@ tmux detach -s startSimulator
 echo 'Simulator set up completed'
 
 sleep 3
-tmux kill-session -t reconfigSnort
+#tmux kill-session -t reconfigSuricata
 
-tmux -2 new-session -d -s runSnort
-tmux send -t runSnort " ssh -i ${pemFileAgent} ubuntu@${valAgent} " ENTER
-tmux send -t runSnort "  cd WebApplicationFirewall/src/ValWAFAgentFiles" ENTER #
-tmux send -t runSnort "./snortstart.sh ${ruleFileAgent//.rules/}" ENTER # Snort started with new config !
-tmux detach -s runSnort
+tmux -2 new-session -d -s runSuricata
+tmux send -t runSuricata " ssh -i ${pemFileAgent} ubuntu@${valAgent} " ENTER
+tmux send -t runSuricata "  cd WebApplicationFirewall/src/ValWAFAgentFiles" ENTER #
+tmux send -t runSuricata "./suricatastart.sh ${ruleFileAgent//.rules/}" ENTER # Suricata started with new config !
+tmux detach -s runSuricata
 
-echo 'Snort starting '
+echo 'Suricata starting '
 
 sleep 10 #it takes time for snort to start. Depend on rules?
 tmux -2 new-session -d -s runTraffic
@@ -133,8 +133,8 @@ echo 'fetching logs...  '
 tmux -2 new-session -d -s fetchLogsForEngine
 tmux send -t fetchLogsForEngine " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER #went to ValWAF
 tmux send -t fetchLogsForEngine " cd  WebApplicationFirewall/src/ValWAFFiles/Engine/Alllogs" ENTER
-tmux send -t fetchLogsForEngine " scp -i ../../ppcap/pemToOrg.pem ubuntu@${valAgent}:/home/ubuntu/WebApplicationFirewall/src/ValWAFAgentFiles/stdlogs.txt   ./ " ENTER
-tmux send -t fetchLogsForEngine " scp -r -i ../../ppcap/pemToOrg.pem ubuntu@${valAgent}:/home/ubuntu/WebApplicationFirewall/src/ValWAFAgentFiles/logs  ./ " ENTER
+#tmux send -t fetchLogsForEngine " scp -i ../../ppcap/pemToOrg.pem ubuntu@${valAgent}:/home/ubuntu/WebApplicationFirewall/src/ValWAFAgentFiles/stdlogs.txt   ./ " ENTER
+tmux send -t fetchLogsForEngine " scp -r -i ../../ppcap/pemToOrg.pem ubuntu@${valAgent}:/home/ubuntu/WebApplicationFirewall/src/ValWAFAgentFiles/Suricata/logs  ./ " ENTER
 
 #moved the logs to older version for future reference  
 sleep 10
