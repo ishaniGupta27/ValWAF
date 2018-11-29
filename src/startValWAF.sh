@@ -21,6 +21,8 @@ tmux send -t startServer " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
 tmux send -t startServer "  sudo python -m SimpleHTTPServer 80 &" ENTER
 tmux detach -s startServer
 
+sleep 10
+
 #tmux for trackng traffic
 tmux -2 new-session -d -s trackTraffic
 tmux send -t trackTraffic " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
@@ -28,13 +30,16 @@ tmux send -t trackTraffic " cd WebApplicationFirewall/src/ValWAFFiles/ppcap" ENT
 tmux send -t trackTraffic " ./startTracking.sh $ppcapFile" ENTER
 tmux detach -s trackTraffic
 
+
+
+
 #start sending malicious traffic
 tmux -2 new-session -d -s maliciousTrafficGenerator
 tmux send -t maliciousTrafficGenerator " ssh -i ${pemFile} ubuntu@${valWaf} " ENTER
 tmux send -t maliciousTrafficGenerator " cd WebApplicationFirewall/src/ValWAFFiles" ENTER
 tmux send -t maliciousTrafficGenerator " g++ -std=c++11 MaliciousTrafficGenerator/idsEventGenerator.cpp -lcurl " ENTER
 tmux send -t maliciousTrafficGenerator " cd ppcap" ENTER
-tmux send -t maliciousTrafficGenerator " ./make_ppcap.sh $ruleFile" ENTER
+tmux send -t maliciousTrafficGenerator " ./make_ppcap.sh $ruleFile $valWaf" ENTER
 
 sleep 10
 #stop tracking traffic
@@ -45,9 +50,9 @@ tmux detach -s maliciousTrafficGenerator
 sleep 5
 
 
-tmux kill-session -t startServer
-tmux kill-session -t trackTraffic
-tmux kill-session -t maliciousTrafficGenerator
+#tmux kill-session -t startServer
+#tmux kill-session -t trackTraffic
+#tmux kill-session -t maliciousTrafficGenerator
 
 
 
@@ -93,7 +98,7 @@ tmux detach -s startSimulator
 echo 'Simulator set up completed'
 
 sleep 3
-#tmux kill-session -t reconfigSnort
+tmux kill-session -t reconfigSnort
 
 tmux -2 new-session -d -s runSnort
 tmux send -t runSnort " ssh -i ${pemFileAgent} ubuntu@${valAgent} " ENTER
@@ -107,7 +112,7 @@ tmux send -t runTraffic "  cd WebApplicationFirewall/src/ValWAFAgentFiles/traffi
 tmux send -t runTraffic "sudo tcpreplay -i s1-eth1 ${ppcapFile}.pcap" ENTER # Snort started with new config !
 tmux detach -s runTraffic
 
-
+echo 'Logs have been generated  '
 
 
 
